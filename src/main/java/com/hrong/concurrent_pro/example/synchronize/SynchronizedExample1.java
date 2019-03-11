@@ -1,4 +1,4 @@
-package com.hrong.concurrent_pro.synchronize;
+package com.hrong.concurrent_pro.example.synchronize;
 
 import lombok.extern.slf4j.Slf4j;
 

@@ -1,4 +1,4 @@
-package com.hrong.concurrent_pro.atomic;
+package com.hrong.concurrent_pro.example.atomic;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;

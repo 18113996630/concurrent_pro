@@ -1,24 +1,20 @@
-package com.hrong.concurrent_pro.counter;
-
-import com.hrong.concurrent_pro.annotations.ThreadSafe;
-import com.hrong.concurrent_pro.annotations.ThreadUnSafe;
+package com.hrong.concurrent_pro.example.atomic;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * @ClassName CounterSafeTest
- * @Date 2019/3/8 09:45
- * @Description
+ * @ClassName AtomicExample1
+ * @Date 2019/3/8 11:34
+ * @Description	使用AtomicLong进行线程安全的计数操作
  **/
-@ThreadSafe
-public class CounterSafeTest {
+public class AtomicExample1 {
 	public static int totalClient = 1000;
 	public static int concurrentNumber = 50;
-	public static AtomicInteger count = new AtomicInteger(0);
+	public static AtomicLong count = new AtomicLong();
 
 	public static void main(String[] args) throws InterruptedException {
 		ExecutorService executorService = Executors.newCachedThreadPool();
@@ -47,3 +43,4 @@ public class CounterSafeTest {
 		count.getAndIncrement();
 	}
 }
+

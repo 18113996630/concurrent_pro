@@ -1,26 +1,24 @@
-package com.hrong.concurrent_pro.atomic;
+package com.hrong.concurrent_pro.example.counter;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.hrong.concurrent_pro.annotations.ThreadSafe;
+import com.hrong.concurrent_pro.annotations.ThreadUnSafe;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
-import java.util.concurrent.atomic.AtomicLong;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.concurrent.atomic.LongAdder;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * @ClassName AtomicExample2
- * @Date 2019/3/8 11:34
- * @Description	AtomicReference
+ * @ClassName CounterSafeTest
+ * @Date 2019/3/8 09:45
+ * @Description
  **/
-public class AtomicExample4 {
-	private static Logger logger = LoggerFactory.getLogger(AtomicExample4.class);
+@ThreadSafe
+public class CounterSafeTest {
 	public static int totalClient = 1000;
 	public static int concurrentNumber = 50;
-	public static AtomicReference<Integer> reference = new AtomicReference<>(1);
+	public static AtomicInteger count = new AtomicInteger(0);
 
 	public static void main(String[] args) throws InterruptedException {
 		ExecutorService executorService = Executors.newCachedThreadPool();
@@ -42,22 +40,10 @@ public class AtomicExample4 {
 		}
 		countDownLatch.await();
 		executorService.shutdown();
-		System.out.println("count:" + reference.get());
+		System.out.println("count:" + count.get());
 	}
 
 	public static void deal() {
-		if (reference.compareAndSet(1, 0)) {
-			logger.info("change the int value from 1 to 0");
-		}
-		if (reference.compareAndSet(1, 2)) {
-			logger.info("change the int value from 1 to 2");
-		}
-		if (reference.compareAndSet(2, 3)) {
-			logger.info("change the int value from 2 to 3");
-		}
-		if (reference.compareAndSet(0, 9)) {
-			logger.info("change the int value from 0 to 9");
-		}
+		count.getAndIncrement();
 	}
 }
-

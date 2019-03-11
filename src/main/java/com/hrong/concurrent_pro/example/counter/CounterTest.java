@@ -1,4 +1,4 @@
-package com.hrong.concurrent_pro.counter;
+package com.hrong.concurrent_pro.example.counter;
 
 import com.hrong.concurrent_pro.annotations.ThreadUnSafe;
 import lombok.extern.slf4j.Slf4j;
