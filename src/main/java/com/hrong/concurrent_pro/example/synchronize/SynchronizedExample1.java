@@ -9,9 +9,17 @@ import java.util.concurrent.Executors;
  * @ClassName SynchronizedExample1
  * @Date 2019/3/8 16:15
  * @Description synchronized关键字的使用
+ * 总结：
+ * 修饰代码块，作用于调用的对象
+ * 修饰方法，作用于调用的对象
+ * 修饰静态方法，作用于所有对象
+ * 修饰类，作用于所有对象
+ * 修饰成员变量，作用于所有对象
  **/
 @Slf4j
 public class SynchronizedExample1 {
+	private static final Object lock = new Object();
+
 	/**
 	 * synchronized关键字修饰【代码块】，
 	 * 作用的对象是调用该方法的对象
@@ -74,6 +82,20 @@ public class SynchronizedExample1 {
 		synchronized (SynchronizedExample1.class) {
 			for (int i = 0; i < 10; i++) {
 				log.info("methodFive->{}->{}", flag, i);
+			}
+		}
+	}
+
+	/**
+	 * synchronized关键字修饰成员属性，
+	 * 作用的对象是所有对象
+	 *
+	 * @param flag
+	 */
+	public void methodSix(int flag) {
+		synchronized (lock) {
+			for (int i = 0; i < 10; i++) {
+				log.info("methodSix->{}->{}", flag, i);
 			}
 		}
 	}
@@ -173,7 +195,7 @@ public class SynchronizedExample1 {
 //		});
 
 		/**
-		 * 代用被synchronized修饰的方法
+		 * 调用被synchronized修饰的方法
 		 */
 		//同一对象调用-顺序执行
 		//不同对象调用-乱序执行
@@ -183,6 +205,17 @@ public class SynchronizedExample1 {
 //		pool.execute(() -> {
 //			extend.methodTwo(2);
 //		});
+
+		/**
+		 * 修饰成员变量
+		 */
+		pool.execute(() -> {
+			example1.methodSix(1);
+		});
+		SynchronizedExample1 example2 = new SynchronizedExample1();
+		pool.execute(() -> {
+			example1.methodSix(2);
+		});
 	}
 }
 
