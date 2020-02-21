@@ -14,10 +14,12 @@ import java.util.concurrent.Executors;
  * 修饰方法，作用于调用的对象
  * 修饰静态方法，作用于所有对象
  * 修饰类，作用于所有对象
- * 修饰成员变量，作用于所有对象
+ * 修饰静态成员变量，作用于所有对象
+ * 修饰成员变量，作用于调用的对象
  **/
 @Slf4j
 public class SynchronizedExample1 {
+//	private Object lock = new Object();
 	private static final Object lock = new Object();
 
 	/**
@@ -209,12 +211,18 @@ public class SynchronizedExample1 {
 		/**
 		 * 修饰成员变量
 		 */
+//		pool.execute(() -> {
+//			example1.methodSix(1);
+//		});
+//		pool.execute(() -> {
+//			example1.methodSix(2);
+//		});
+		SynchronizedExample1 example2 = new SynchronizedExample1();
 		pool.execute(() -> {
 			example1.methodSix(1);
 		});
-		SynchronizedExample1 example2 = new SynchronizedExample1();
 		pool.execute(() -> {
-			example1.methodSix(2);
+			example2.methodSix(2);
 		});
 	}
 }
